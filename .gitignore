@@ -1,0 +1,10 @@
+# Stray Python build artifacts (none expected — the plugin is stdlib-only
+# config files, but cover them just in case CPython emits some).
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Reserved for forward-compat. Today no operator state lives under the
+# plugin tree (unlike the Hermes plugin's `.local/`), but if v0.5.7+ adds
+# per-project state, this is where it goes.
+.local/

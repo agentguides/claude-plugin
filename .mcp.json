@@ -1,0 +1,12 @@
+{
+  "_comment": "Declarative MCP server registration. Claude Code spawns `guide mcp` when the plugin is enabled. GUIDE_HARNESS tags every walk record; GUIDE_SCOPE is resolved by the runtime from $CLAUDE_PROJECT_DIR at MCP-server startup. GUIDE_HOME / GUIDE_LIBRARY_PATH / GUIDE_STATE_PATH fall through to the runtime defaults under ~/.guide/ unless the operator overrides via shell env.",
+  "mcpServers": {
+    "guide": {
+      "command": "guide",
+      "args": ["mcp"],
+      "env": {
+        "GUIDE_HARNESS": "claude-code"
+      }
+    }
+  }
+}

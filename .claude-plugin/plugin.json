@@ -1,0 +1,10 @@
+{
+  "name": "guide",
+  "displayName": "guide",
+  "version": "0.5.6",
+  "description": "guide-cli plugin for Claude Code — bundles the walk Skill triple, walk-observer audit hooks, and the guide MCP server. After install, add `guide` to `enabledPlugins` in ~/.claude/settings.json.",
+  "license": "MIT",
+  "homepage": "https://github.com/briancripe/agent-guides",
+  "repository": "https://github.com/briancripe/agent-guides",
+  "keywords": ["guide-cli", "walk", "audit", "mcp"]
+}

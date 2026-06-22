@@ -1,0 +1,47 @@
+{
+  "description": "Walk-observer audit reconstruction hooks. Fires on every tool call + user prompt + Stop; the underlying `guide hook walk-observer` is a no-op when GUIDE_AUDIT_MODE != observer (safe to leave installed in non-observer sessions).",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "guide hook walk-observer"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "guide hook walk-observer"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "guide hook walk-observer"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "guide hook walk-observer"
+          }
+        ]
+      }
+    ]
+  }
+}
