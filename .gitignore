@@ -11,3 +11,6 @@ __pycache__/
 # plugin tree (unlike the Hermes plugin's `.local/`), but if a future
 # release adds per-project state, this is where it goes.
 .local/
+
+# build artifacts
+dist/
