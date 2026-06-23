@@ -1,10 +1,11 @@
 # `guide` — Claude Code plugin
 
-> **Status:** prototype in the `agent-guides` monorepo (`plugins/claude-plugin/`).
-> Once verified against a real Claude Code session, this tree extracts cleanly into
-> its own repo at `agentguides/claude-plugin`.
+> Standalone repo: [`agentguides/claude-plugin`](https://github.com/agentguides/claude-plugin).
+> The declarative plugin tree plus a `uv`/`pytest` dev harness. The `guide-cli`
+> runtime ships separately and is only needed as a dev tool to regenerate the
+> rendered skills (see [Regenerating the skills](#regenerating-the-skills)).
 
-User-scoped install of the [`guide-cli`](https://github.com/briancripe/agent-guides)
+User-scoped install of the [`guide-cli`](https://pypi.org/project/guide-cli/)
 runtime under Claude Code:
 
 - registers the `guide` MCP server (`mcpServers.guide` via declarative `.mcp.json`);
@@ -23,9 +24,10 @@ available across every Claude Code session.
 ## Install
 
 ```bash
-claude /plugin install <local-path-or-git-url>
-# during prototyping in this monorepo:
-claude /plugin install ./plugins/claude-plugin
+claude /plugin install https://github.com/agentguides/claude-plugin
+# or from a local checkout:
+git clone https://github.com/agentguides/claude-plugin
+claude /plugin install ./claude-plugin
 ```
 
 Then enable the plugin (one-time, in `~/.claude/settings.json`):
@@ -80,11 +82,27 @@ $GUIDE_HOME (default ~/.guide/)                  runtime home — SHARED with He
 └── cache/                                       content-addressed bundle cache
 ```
 
+## Regenerating the skills
+
+The `skills/{walk,walk-observer,walk-inline}/SKILL.md` files are derived
+artifacts of the `guide-cli` renderer, committed into the repo. To regenerate
+them (e.g. after a runtime template change):
+
+```bash
+just render        # or: uv run python scripts/render_plugin_skills.py
+just test          # or: uv run pytest
+```
+
+`guide-cli` is a dev-only dependency. By default it resolves from a sibling
+`../runtime` checkout (editable, via `[tool.uv.sources]` in `pyproject.toml`);
+otherwise `uv` falls back to the published `guide-cli` dist on PyPI. A clean
+re-render must produce a zero-diff `git status` against the committed skills.
+
 ## How it differs from the Hermes plugin
 
-The [Hermes plugin](../hermes-plugin/) is bigger because Hermes has multiple
-profiles + a built-in cron. Claude Code has neither, so v0.5.6 deliberately drops
-three v0.5.5 surfaces:
+The Hermes plugin is bigger because Hermes has multiple profiles + a built-in
+cron. Claude Code has neither, so v0.5.6 deliberately drops three v0.5.5
+surfaces:
 
 - **No symlink-farm view.** Single user-scope install means there's nothing
   per-something to filter. The MCP server reads `$GUIDE_HOME/library/` directly.
@@ -94,6 +112,5 @@ three v0.5.5 surfaces:
 
 ## See also
 
-- [`docs/cli/library.md`](../../docs/cli/library.md) — central library shape.
-- [`docs/cli/sources.md`](../../docs/cli/sources.md) — pull sources.
-- [`.planning/plans/v0.5.6-claude-plugin.md`](../../.planning/plans/v0.5.6-claude-plugin.md) — design.
+- [`guide-cli` on PyPI](https://pypi.org/project/guide-cli/) — the runtime that
+  backs the MCP server, hooks, and skill renderer.

@@ -1,10 +1,13 @@
-# Stray Python build artifacts (none expected — the plugin is stdlib-only
-# config files, but cover them just in case CPython emits some).
+# Python build / cache artifacts. The plugin tree itself is declarative
+# config + rendered skills, but the dev/test harness (uv + pytest +
+# editable guide-cli) emits these.
 __pycache__/
 *.pyc
 .pytest_cache/
+*.egg-info/
+.venv/
 
 # Reserved for forward-compat. Today no operator state lives under the
-# plugin tree (unlike the Hermes plugin's `.local/`), but if v0.5.7+ adds
-# per-project state, this is where it goes.
+# plugin tree (unlike the Hermes plugin's `.local/`), but if a future
+# release adds per-project state, this is where it goes.
 .local/
