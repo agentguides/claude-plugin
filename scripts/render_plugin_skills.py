@@ -5,7 +5,7 @@ artifacts of `guide_cli.resources.render_*`. This script makes the regen
 reproducible: `just render` (or `uv run python scripts/render_plugin_skills.py`)
 rewrites the committed skills byte-for-byte from the runtime renderer.
 
-`guide-cli` is a DEV dependency (resolved from the sibling ../runtime checkout
+`agentguides` is a DEV dependency (resolved from the sibling ../runtime checkout
 via [tool.uv.sources], or from PyPI). The render spec below — router
 default_mode=observer, walk-observer capability=full, walk-inline capability=low —
 is the committed plugin shape, reproduced here, not changed.

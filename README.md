@@ -1,11 +1,11 @@
 # `guide` — Claude Code plugin
 
 > Standalone repo: [`agentguides/claude-plugin`](https://github.com/agentguides/claude-plugin).
-> The declarative plugin tree plus a `uv`/`pytest` dev harness. The `guide-cli`
+> The declarative plugin tree plus a `uv`/`pytest` dev harness. The `guide`
 > runtime ships separately and is only needed as a dev tool to regenerate the
 > rendered skills (see [Regenerating the skills](#regenerating-the-skills)).
 
-User-scoped install of the [`guide-cli`](https://pypi.org/project/guide-cli/)
+User-scoped install of the [`agentguides`](https://pypi.org/project/agentguides/)
 runtime under Claude Code:
 
 - registers the `guide` MCP server (`mcpServers.guide` via declarative `.mcp.json`);
@@ -43,7 +43,7 @@ Next Claude session loads the plugin's hooks + MCP + Skills automatically.
 Prereq: `guide` on PATH. If missing:
 
 ```bash
-uv tool install guide-cli   # or: pipx install guide-cli
+uv tool install agentguides   # or: pipx install agentguides
 ```
 
 ## Uninstall
@@ -85,7 +85,7 @@ $GUIDE_HOME (default ~/.guide/)                  runtime home — SHARED with He
 ## Regenerating the skills
 
 The `skills/{walk,walk-observer,walk-inline}/SKILL.md` files are derived
-artifacts of the `guide-cli` renderer, committed into the repo. To regenerate
+artifacts of the `guide` renderer, committed into the repo. To regenerate
 them (e.g. after a runtime template change):
 
 ```bash
@@ -93,9 +93,9 @@ just render        # or: uv run python scripts/render_plugin_skills.py
 just test          # or: uv run pytest
 ```
 
-`guide-cli` is a dev-only dependency. By default it resolves from a sibling
+`agentguides` is a dev-only dependency. By default it resolves from a sibling
 `../runtime` checkout (editable, via `[tool.uv.sources]` in `pyproject.toml`);
-otherwise `uv` falls back to the published `guide-cli` dist on PyPI. A clean
+otherwise `uv` falls back to the published `agentguides` dist on PyPI. A clean
 re-render must produce a zero-diff `git status` against the committed skills.
 
 ## How it differs from the Hermes plugin
@@ -112,5 +112,5 @@ surfaces:
 
 ## See also
 
-- [`guide-cli` on PyPI](https://pypi.org/project/guide-cli/) — the runtime that
+- [`agentguides` on PyPI](https://pypi.org/project/agentguides/) — the runtime that
   backs the MCP server, hooks, and skill renderer.

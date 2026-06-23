@@ -8,7 +8,7 @@ license = { text = "MIT" }
 
 # This project ships a declarative Claude Code plugin (config + rendered
 # skills), not an importable Python package, so it has no runtime
-# dependencies. `guide-cli` is a DEV-only tool used to regenerate the
+# dependencies. `agentguides` is a DEV-only tool used to regenerate the
 # rendered walk Skill triple under skills/; a published install would
 # resolve it from PyPI (see [tool.uv.sources] for the local checkout).
 dependencies = []
@@ -26,9 +26,9 @@ dev = [
     "ruff>=0.6",
 ]
 
-# Local/dev resolves guide-cli from the sibling runtime checkout as an
+# Local/dev resolves agentguides from the sibling runtime checkout as an
 # editable install (the "local fixture run" mechanism). A published install
-# falls back to the plain `guide-cli` dist on PyPI.
+# falls back to the plain `agentguides` dist on PyPI.
 [tool.uv.sources]
 agentguides = { path = "../runtime", editable = true }
 
