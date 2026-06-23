@@ -11,8 +11,10 @@ import re
 from pathlib import Path
 
 
+# Standalone repo: the plugin tree IS the repo root, so PLUGIN_ROOT and
+# REPO_ROOT coincide (in the former monorepo they were two levels apart).
 PLUGIN_ROOT = Path(__file__).resolve().parents[1]
-REPO_ROOT = PLUGIN_ROOT.parents[1]
+REPO_ROOT = PLUGIN_ROOT
 MANIFEST = PLUGIN_ROOT / ".claude-plugin" / "plugin.json"
 
 

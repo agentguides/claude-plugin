@@ -1,0 +1,39 @@
+[project]
+name = "agentguides-claude-plugin"
+version = "0.5.7"
+description = "Dev/test harness for the agentguides `guide` Claude Code plugin (declarative plugin tree + pytest suite + skill renderer)."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+
+# This project ships a declarative Claude Code plugin (config + rendered
+# skills), not an importable Python package, so it has no runtime
+# dependencies. `guide-cli` is a DEV-only tool used to regenerate the
+# rendered walk Skill triple under skills/; a published install would
+# resolve it from PyPI (see [tool.uv.sources] for the local checkout).
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "guide-cli",
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "python-frontmatter>=1.1",
+]
+
+# Local/dev resolves guide-cli from the sibling runtime checkout as an
+# editable install (the "local fixture run" mechanism). A published install
+# falls back to the plain `guide-cli` dist on PyPI.
+[tool.uv.sources]
+guide-cli = { path = "../runtime", editable = true }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# importlib import-mode keeps test module names from colliding and matches
+# the runtime repo's convention.
+addopts = "-ra -m 'not live and not perf' --import-mode=importlib"
+asyncio_mode = "auto"
+markers = [
+    "live: tests that require a real host binary (hermes, opencode, etc.) and opt-in env vars; skipped by default — run with `pytest -m live`",
+    "perf: wall-clock perf benchmarks; slow (~30s+); skipped by default — run with `pytest -m perf`",
+]
