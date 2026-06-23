@@ -45,7 +45,7 @@ def test_all_three_skills_have_yaml_frontmatter() -> None:
 def test_walk_router_declares_default_mode_observer() -> None:
     meta = _meta(WALK)
     assert meta["name"] == "walk"
-    block = meta.get("guide-cli", {})
+    block = meta.get("guide", {}).get("runtime", {})
     assert block.get("router") is True, "walk router must declare router: true"
     assert block.get("default_mode") == "observer", (
         f"router default_mode must be 'observer', got {block.get('default_mode')!r}"
@@ -55,7 +55,7 @@ def test_walk_router_declares_default_mode_observer() -> None:
 def test_walk_observer_skill_carries_observer_full_tuple() -> None:
     meta = _meta(WALK_OBSERVER)
     assert meta["name"] == "walk-observer"
-    block = meta.get("guide-cli", {})
+    block = meta.get("guide", {}).get("runtime", {})
     assert block["mode"] == "observer"
     assert block["capability"] == "full"
 
@@ -63,7 +63,7 @@ def test_walk_observer_skill_carries_observer_full_tuple() -> None:
 def test_walk_inline_skill_carries_inline_low_tuple() -> None:
     meta = _meta(WALK_INLINE)
     assert meta["name"] == "walk-inline"
-    block = meta.get("guide-cli", {})
+    block = meta.get("guide", {}).get("runtime", {})
     assert block["mode"] == "inline"
     assert block["capability"] == "low"
 
@@ -72,10 +72,10 @@ def test_features_block_present_on_concrete_skills() -> None:
     """The feature list in frontmatter is what Guides use to gate
     `agent-guides.requires:` checks at runtime. Must survive render."""
     for skill in (WALK_OBSERVER, WALK_INLINE):
-        block = _meta(skill).get("guide-cli", {})
+        block = _meta(skill).get("guide", {}).get("runtime", {})
         features = block.get("features")
         assert isinstance(features, list) and features, (
-            f"{skill.name}: guide-cli.features missing or empty"
+            f"{skill.name}: guide.runtime.features missing or empty"
         )
 
 
@@ -83,7 +83,7 @@ def test_skills_carry_no_install_method() -> None:
     """For plugin-shipped Skills, install_method is null (vs. claude-code's
     legacy `skills-dir` / `plugin-dir`). v0.5.6 only ships the plugin path."""
     for skill in (WALK_OBSERVER, WALK_INLINE):
-        block = _meta(skill).get("guide-cli", {})
+        block = _meta(skill).get("guide", {}).get("runtime", {})
         assert block.get("install_method") is None, (
             f"{skill.name}: install_method must be null in plugin Skills; "
             f"got {block.get('install_method')!r}"
