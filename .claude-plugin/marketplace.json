@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "agentguides",
+  "description": "Agent Guides marketplace — the `guide` plugin for Claude Code.",
+  "owner": {
+    "name": "Brian Cripe",
+    "email": "brian@xenophon.dev"
+  },
+  "plugins": [
+    {
+      "name": "guide",
+      "source": ".",
+      "description": "Agent Guides plugin for Claude Code: walk Skills, walk-observer audit hooks, and the guide MCP server."
+    }
+  ]
+}
