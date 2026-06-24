@@ -1,6 +1,6 @@
 [project]
 name = "agentguides-claude-plugin"
-version = "0.5.7"
+version = "0.1.0"
 description = "Dev/test harness for the agentguides `guide` Claude Code plugin (declarative plugin tree + pytest suite + skill renderer)."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -19,7 +19,8 @@ dev = [
     # editable sibling checkout via [tool.uv.sources]; the constraint documents
     # what a non-editable resolve would pull and is the compat range
     # `just verify-runtime` proves green.
-    "agentguides>=0.5.8,<0.6.0",
+    "agentguides>=0.5.9,<0.6.0",
+    "packaging>=23",
     "pytest>=8.0",
     "pytest-asyncio>=0.23",
     "python-frontmatter>=1.1",
