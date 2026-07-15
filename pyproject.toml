@@ -1,6 +1,6 @@
 [project]
 name = "agentguides-claude-plugin"
-version = "0.1.0"
+version = "0.1.1"
 description = "Dev/test harness for the agentguides `guide` Claude Code plugin (declarative plugin tree + pytest suite + skill renderer)."
 readme = "README.md"
 requires-python = ">=3.10"
