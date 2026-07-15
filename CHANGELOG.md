@@ -2,6 +2,20 @@
 
 All notable changes to `agentguides-claude-plugin` are recorded here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows [SemVer](https://semver.org/).
 
+## [0.1.1] — 2026-07-15 (walk_* MCP calls no longer prompt)
+
+### Fixed
+
+- Every `walk_*` MCP state op (`walk_append_event`, `walk_update_step`,
+  `walk_read_step`, …) raised a permission prompt despite only touching
+  guide-managed run files (ag-cp-c80). A new `PreToolUse` entry in
+  `hooks/hooks.json` auto-approves the plugin's own `walk_*` tools under
+  every install shape (plugin-scoped with any plugin name, or standalone
+  `mcp__guide__*`); nothing outside `walk_*` is matched. The approval is an
+  inline `echo` — the no-`${CLAUDE_PLUGIN_ROOT}`/no-script-path portability
+  invariant holds — and the test suite now exercises the matcher coverage and
+  runs the command through the shell to assert the emitted allow decision.
+
 ## [0.1.0] — 2026-06-23 (first standalone release: repo carve + agentguides rename + release automation)
 
 > Theme: *first release of the `guide` Claude Code plugin as a standalone repo.

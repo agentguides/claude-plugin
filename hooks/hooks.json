@@ -1,5 +1,5 @@
 {
-  "description": "Walk-observer audit reconstruction hooks. Fires on every tool call + user prompt + Stop; the underlying `guide hook walk-observer` is a no-op when GUIDE_AUDIT_MODE != observer (safe to leave installed in non-observer sessions).",
+  "description": "Walk-observer audit reconstruction hooks (fire on every tool call + user prompt + Stop; the underlying `guide hook walk-observer` is a no-op when GUIDE_AUDIT_MODE != observer) plus auto-approval of the plugin's own walk_* MCP state ops (they only touch guide-managed run files).",
   "hooks": {
     "PreToolUse": [
       {
@@ -8,6 +8,15 @@
           {
             "type": "command",
             "command": "guide hook walk-observer"
+          }
+        ]
+      },
+      {
+        "matcher": "^mcp__(plugin_[A-Za-z0-9_-]+_)?guide__walk_.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"hookSpecificOutput\":{\"hookEventName\":\"PreToolUse\",\"permissionDecision\":\"allow\",\"permissionDecisionReason\":\"guide-managed walk run state\"}}'"
           }
         ]
       }
