@@ -1,0 +1,14 @@
+[tool.commitizen]
+name = "cz_conventional_commits"
+version_provider = "commitizen"
+version = "0.1.1"
+tag_format = "v$version"
+# tag.gpgsign=true forces annotated tags, which need a message; cz must create them annotated
+annotated_tag = true
+# CHANGELOG.md is hand-written Keep-a-Changelog (`## [x.y.z] — date` headings),
+# gated by scripts/check_version_changelog.py — cz must not overwrite it.
+update_changelog_on_bump = false
+version_files = [
+  ".claude-plugin/plugin.json:\"version\"",
+  "pyproject.toml:^version",
+]

@@ -68,6 +68,20 @@ release-dryrun VERSION:
     just verify-runtime
     echo "release-dryrun OK — to tag: git tag -a v{{VERSION}} -m 'release v{{VERSION}}'"
 
+# Preview the next version computed from conventional commits (no writes).
+[group('release')]
+bump-dry:
+    uvx --from commitizen cz bump --dry-run
+
+# Compute the next version from conventional commits and write it into
+# .cz.toml + plugin.json + pyproject.toml (no commit, no tag). Follow-ups:
+# add the CHANGELOG `## [x.y.z]` entry, commit, `just tag <version>`, and
+# bump the guide ref in agentguides/agentguides .claude-plugin/marketplace.json.
+[group('release')]
+bump:
+    uvx --from commitizen cz bump --files-only
+    @echo "next: CHANGELOG heading -> commit -> just tag <version> -> bump marketplace ref (agentguides/agentguides)"
+
 # Create the annotated release tag after the version gate passes.
 [group('release')]
 tag VERSION:
