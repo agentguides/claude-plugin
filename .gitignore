@@ -20,3 +20,14 @@ dist/
 *.db
 .beads-credential-key
 .beads/proxieddb/
+
+# bd takes this lock in the HIVE ROOT, not under .beads/, so the .beads/ rules do not
+# cover it. Untracked, it dirties the tree and `bh work merge` refuses to merge a dirty
+# main clone — the merge run creates the lock, then fails its own cleanliness check on
+# it. Regenerable; never commit it.
+.beads.gate.lock
+
+# JSONL export of the bead corpus. Bead state rides refs/dolt/data, so this is a
+# regenerable artifact, not a source of truth. Tracked config lives beside it
+# (.beads/config.yaml, .beads/metadata.json) and IS committed.
+.beads/issues.jsonl
