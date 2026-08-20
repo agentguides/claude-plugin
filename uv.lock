@@ -24,7 +24,7 @@ wheels = [
 
 [[package]]
 name = "agentguides"
-version = "0.5.9"
+version = "0.5.12"
 source = { editable = "../runtime" }
 dependencies = [
     { name = "agent-client-protocol" },
@@ -34,6 +34,7 @@ dependencies = [
     { name = "httpx" },
     { name = "jinja2" },
     { name = "jsonschema" },
+    { name = "packaging" },
     { name = "pydantic" },
     { name = "python-frontmatter" },
     { name = "pyyaml" },
@@ -51,6 +52,7 @@ requires-dist = [
     { name = "jinja2", specifier = ">=3.1" },
     { name = "jsonschema", specifier = ">=4.20" },
     { name = "networkx", marker = "extra == 'analysis'", specifier = ">=3.0" },
+    { name = "packaging", specifier = ">=23" },
     { name = "pydantic", specifier = ">=2.6" },
     { name = "python-frontmatter", specifier = ">=1.1" },
     { name = "pyyaml", specifier = ">=6.0" },
@@ -61,18 +63,21 @@ provides-extras = ["analysis", "web"]
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "commitizen", specifier = ">=4.10" },
     { name = "fastapi", specifier = ">=0.110" },
     { name = "httpx", specifier = ">=0.27" },
+    { name = "mypy", specifier = ">=1.11" },
     { name = "networkx", specifier = ">=3.0" },
     { name = "pytest", specifier = ">=8.0" },
     { name = "pytest-asyncio", specifier = ">=0.23" },
+    { name = "pytest-cov", specifier = ">=5.0" },
     { name = "ruff", specifier = ">=0.6" },
     { name = "uvicorn", extras = ["standard"], specifier = ">=0.30" },
 ]
 
 [[package]]
 name = "agentguides-claude-plugin"
-version = "0.1.0"
+version = "0.1.1"
 source = { virtual = "." }
 
 [package.dev-dependencies]
